@@ -1,7 +1,7 @@
-FROM ubuntu:21.04 as builder
+FROM ubuntu:22.04 as builder
 WORKDIR /source
-COPY ./downloader.sh .
-RUN apt update && apt install -y wget curl && bash downloader.sh
+COPY ./download_trivydbv2.sh .
+RUN apt update && apt install -y wget curl && bash download_trivydbv2.sh
 
 
 FROM alpine:3.15.0
