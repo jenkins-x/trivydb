@@ -32,7 +32,7 @@ jobs:
       with:
         registry: ghcr.io
         username: jenkins-x
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GIT_BOT_TOKEN }}
     - name: Build and push trivydb
       uses: docker/build-push-action@v2
       with:
