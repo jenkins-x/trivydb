@@ -7,3 +7,9 @@ rm -rf oras_0.12.0_*.tar.gz oras-install/
 ./oras pull ghcr.io/aquasecurity/trivy-db:2 -a \
     && tar -xzvf db.tar.gz \
     && rm db.tar.gz
+
+mkdir -p java-db
+./oras pull ghcr.io/aquasecurity/trivy-java-db:1 -a \
+    && tar -xzvf javadb.tar.gz -C ./java-db \
+    && rm javadb.tar.gz
+ 
