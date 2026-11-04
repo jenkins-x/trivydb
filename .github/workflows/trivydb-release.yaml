@@ -3,11 +3,17 @@ jobs:
   release:
     if: github.repository_owner == 'jenkins-x'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       packages: write
       actions: write
     steps:
+    - name: Keep schedule alive
+      if: github.event_name == 'schedule'
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/trivydb-release.yaml/enable"
     - name: Checkout
       uses: actions/checkout@v5
       with:
@@ -55,4 +61,6 @@ on:
     - main
     - master
   schedule:
-    - cron:  "0 6 * * *" # build project every day at hour 6, minute 0 (aka 06:00)
+    # Set cron to run at a quiet time to avoid peaks in demand
+    - cron: "43 21 * * *" # daily at 21:43 UTC
+  workflow_dispatch: {}
